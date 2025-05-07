@@ -4,6 +4,7 @@
     "": {
       "name": "sandakelum",
       "dependencies": {
+        "@netlify/plugin-nextjs": "^5.11.1",
         "@radix-ui/react-slot": "^1.2.0",
         "@radix-ui/react-tooltip": "^1.2.4",
         "@tanstack/react-query": "^5.74.11",
@@ -118,6 +119,8 @@
     "@img/sharp-win32-x64": ["@img/sharp-win32-x64@0.34.1", "", { "os": "win32", "cpu": "x64" }, "sha512-hw1iIAHpNE8q3uMIRCgGOeDoz9KtFNarFLQclLxr/LK1VBkj8nby18RjFvr6aP7USRYAjTZW6yisnBWMX571Tw=="],
 
     "@napi-rs/wasm-runtime": ["@napi-rs/wasm-runtime@0.2.9", "", { "dependencies": { "@emnapi/core": "^1.4.0", "@emnapi/runtime": "^1.4.0", "@tybys/wasm-util": "^0.9.0" } }, "sha512-OKRBiajrrxB9ATokgEQoG87Z25c67pCpYcCwmXYX8PBftC9pBfN18gnm/fh1wurSLEKIAt+QRFLFCQISrb66Jg=="],
+
+    "@netlify/plugin-nextjs": ["@netlify/plugin-nextjs@5.11.1", "", {}, "sha512-JD4JtrhW3R0uDaROfNzmhVoYFvj+GS2ARq7YXVXNFxo+rNyU4wJ6nuDZFTsuoEp4nbIVsm2oPaXyjgqk4pd1EA=="],
 
     "@next/env": ["@next/env@15.3.1", "", {}, "sha512-cwK27QdzrMblHSn9DZRV+DQscHXRuJv6MydlJRpFSqJWZrTYMLzKDeyueJNN9MGd8NNiUKzDQADAf+dMLXX7YQ=="],
 

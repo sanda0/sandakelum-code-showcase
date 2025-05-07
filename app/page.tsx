@@ -9,7 +9,7 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold mb-4">
-              Hi, I'm <span className="text-purple-400">Sandakelum</span>
+              Hi, I&apos;m <span className="text-purple-400">Sandakelum</span>
             </h1>
             <h2 className="text-xl md:text-2xl text-muted-foreground mb-6">
               Self-taught Software Engineer
@@ -17,7 +17,7 @@ const Home = () => {
 
             <div className="prose prose-invert max-w-2xl mb-8">
               <p className="text-lg">
-                I'm a self-taught software engineer with experience in building browser extensions, scalable backend services using Golang, Python (FastAPI, Django), and Laravel, as well as full-stack Laravel applications. I also work with React and Vue.js for UI development. My projects often include WebSocket services, REST APIs, and cloud-based tools, many of which are shared on GitHub and Fiverr. Additionally, I create YouTube tutorials and write Medium articles to share knowledge and support the developer community.
+                I&apos;m a self-taught software engineer with experience in building browser extensions, scalable backend services using Golang, Python (FastAPI, Django), and Laravel, as well as full-stack Laravel applications. I also work with React and Vue.js for UI development. My projects often include WebSocket services, REST APIs, and cloud-based tools, many of which are shared on GitHub and Fiverr. Additionally, I create YouTube tutorials and write Medium articles to share knowledge and support the developer community.
               </p>
             </div>
 

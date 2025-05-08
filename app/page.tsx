@@ -4,7 +4,6 @@ import SocialIcons from "../components/SocialIcons";
 import Link from "next/link";
 
 import { GitHubPinnedRepository, PinnedReposProps } from "@/types/github";
-import { Button } from "@/components/ui/button";
 import { GitFork, Github, Star } from "lucide-react";
 
 
@@ -17,7 +16,7 @@ const Home = async () => {
     process.env.GITHUB_PAT as string
   );
   const pinnedRepos: GitHubPinnedRepository[] = res.pinnedRepos;
-  console.log(pinnedRepos);
+
   return (
     <div className="animate-fade-in">
       {/* Hero Section */}
@@ -152,7 +151,7 @@ interface ProjectCardProps {
   openGraphImageUrl?: string;
 }
 
-const ProjectCard = ({ title, description, tech, stargazerCount, forkCount, url, openGraphImageUrl }: ProjectCardProps) => {
+const ProjectCard = ({ title, description, tech, stargazerCount, forkCount, url }: ProjectCardProps) => {
   return (
     <div className="glass-card p-6 h-full flex flex-col 
     ">
@@ -186,6 +185,8 @@ const ProjectCard = ({ title, description, tech, stargazerCount, forkCount, url,
         </div>
 
       </div>
+
+
 
       <p className="text-muted-foreground mb-4 flex-grow">{description}</p>
       <div className="flex flex-wrap gap-2 mt-2">

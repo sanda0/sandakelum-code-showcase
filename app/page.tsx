@@ -1,7 +1,23 @@
 
+import { fetchPinnedRepositories } from "@/lib/githubService";
 import SocialIcons from "../components/SocialIcons";
 import Link from "next/link";
-const Home = () => {
+
+import { GitHubPinnedRepository, PinnedReposProps } from "@/types/github";
+import { Button } from "@/components/ui/button";
+import { GitFork, Github, Star } from "lucide-react";
+
+
+
+
+const Home = async () => {
+
+  const res: PinnedReposProps = await fetchPinnedRepositories(
+    process.env.GITHUB_USERNAME as string,
+    process.env.GITHUB_PAT as string
+  );
+  const pinnedRepos: GitHubPinnedRepository[] = res.pinnedRepos;
+  console.log(pinnedRepos);
   return (
     <div className="animate-fade-in">
       {/* Hero Section */}
@@ -56,26 +72,6 @@ const Home = () => {
       {/* Tech Skills Section */}
       <section className="py-16 bg-secondary/10">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Tech Stack</h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-
-
-            
-            <SkillCard title="Backend Development" description="Golang, Python (FastAPI, Django), Laravel, PostgreSQL, MySQL, MongoDB" />
-            <SkillCard title="Full-stack Web Development" description="Laravel, PHP, MySQL, PostgreSQL, MongoDB React, Vue.js" />
-            <SkillCard title="Frontend & UI Development" description="React, Vue.js, Tailwind CSS, HTML, JavaScript" />
-            <SkillCard title="Browser Extensions" description="JavaScript, TypeScript, Chrome APIs, Firefox APIs" />
-            <SkillCard title="Developer Tools" description="Shell scripting, CLI tools, automation scripts" />
-        
-
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Work Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold">Featured Projects</h2>
             <Link href="/projects" className="text-purple hover:underline">
@@ -84,18 +80,49 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <ProjectCard
-              title="Linodsync"
-              description="Linodsync is a Go-based application designed to back up your project directories and databases on a server to Linode Object Storage."
-              tech={["Golang","S3"]}
-            />
-            <ProjectCard
-              title="SiteTimer(beta)"
-              description="SiteTimer is a browser extension that helps users track time spent on websites, set daily limits, and block access once time is up. With a 7-day browsing history feature, it enhances productivity by managing online habits effectively. 🚀"
-              tech={["TypeScript", "React", "Chrome API"]}
-            />
+
+
+            {/* Dynamic Projects */}
+
+            {pinnedRepos.map((repo, index) => (
+              <ProjectCard
+                key={index}
+                title={repo.name}
+                description={repo.description || "No description available."}
+                tech={
+                  repo.languages.edges.map((edge) => edge.node.name) || []
+                }
+                stargazerCount={repo.stargazerCount}
+                forkCount={repo.forkCount}
+                url={repo.url}
+                openGraphImageUrl={repo.openGraphImageUrl}
+              />
+            ))}
           </div>
         </div>
+      </section>
+
+      {/* Featured Work Section */}
+      <section className="py-16">
+
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Tech Stack</h2>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+
+
+            <SkillCard title="Backend Development" description="Golang, Python (FastAPI, Django), Laravel, PostgreSQL, MySQL, MongoDB" />
+            <SkillCard title="Full-stack Web Development" description="Laravel, PHP, MySQL, PostgreSQL, MongoDB React, Vue.js" />
+            <SkillCard title="Frontend & UI Development" description="React, Vue.js, Tailwind CSS, HTML, JavaScript" />
+            <SkillCard title="Browser Extensions" description="JavaScript, TypeScript, Chrome APIs, Firefox APIs" />
+            <SkillCard title="Developer Tools" description="Shell scripting, CLI tools, automation scripts" />
+
+
+          </div>
+        </div>
+
+
       </section>
     </div>
   );
@@ -119,12 +146,47 @@ interface ProjectCardProps {
   title: string;
   description: string;
   tech: string[];
+  stargazerCount?: number;
+  forkCount?: number;
+  url?: string;
+  openGraphImageUrl?: string;
 }
 
-const ProjectCard = ({ title, description, tech }: ProjectCardProps) => {
+const ProjectCard = ({ title, description, tech, stargazerCount, forkCount, url, openGraphImageUrl }: ProjectCardProps) => {
   return (
-    <div className="glass-card p-6 h-full flex flex-col">
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+    <div className="glass-card p-6 h-full flex flex-col 
+    ">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-xl font-semibold mb-2">{title.replaceAll("_", " ")}</h3>
+
+        <div className="flex items-center gap-1">
+
+          <span
+
+            className="bg-secondary text-sm py-1 px-2 rounded-md flex items-center gap-1"
+          >
+            <Star size={16} className="text-yellow-400 "></Star> {stargazerCount}
+          </span>
+
+          <span
+            className="bg-secondary text-sm py-1 px-2 rounded-md flex items-center gap-1"
+          >
+            <GitFork size={16}></GitFork> {forkCount}
+          </span>
+
+          <span>
+            <Link
+              href={url as string}
+              className="bg-secondary text-sm py-1 px-2 rounded-md flex items-center gap-1"
+              target="_blank"
+              >
+              <Github size={16}></Github>
+              </Link>
+          </span>
+        </div>
+
+      </div>
+
       <p className="text-muted-foreground mb-4 flex-grow">{description}</p>
       <div className="flex flex-wrap gap-2 mt-2">
         {tech.map((item, index) => (
